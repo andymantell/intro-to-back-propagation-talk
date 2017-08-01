@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif'; }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+
+      @page {
+        size: 1210px 681px;
+        margin: 0;
+      }
+
+      @media print {
+        .remark-slide-scaler {
+          width: 100% !important;
+          height: 100% !important;
+          transform: scale(1) !important;
+          top: 0 !important;
+          left: 0 !important;
+        }
+      }
+
+      small {
+        font-size: 50%;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .constrain {
+        width: 60%;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+name: cover
+class: center, middle
+
+# Intro to Neural Networks <br><small>- a primer on back propagation</small>
+
+Andy Mantell - Contract frontend developer<br>
+(@andymantell)
+
+---
+
+name: inverse
+layout: true
+class: center, middle, inverse
+---
+# Quick! You need to prep a talk!
+
+---
+class: middle
+
+> "Next time you should do a talk on something that you already know and are good at"
+
+<span style="text-align: left">Ashleigh Mitchell, 2016</span>
+
+---
+
+![Lol](assets/images/lol.gif)
+
+---
+
+![University](assets/images/grad.jpg)
+
+---
+
+<div class="constrain">
+<img src="assets/images/tweet.png" alt="">
+</div>
+
+---
+
+<video src="assets/images/difficult.mp4"></video>
+<p>When you look away for a second during class...</p>
+
+---
+class: center, middle
+
+# Anyway, here goes...
+
+---
+
+# What the heck is a neural network?
+
+![Neurons](assets/images/MIT-Label-Neurons_0.jpg)
+
+---
+
+# What the heck is a neural network?
+
+![Neural network](assets/images/tikz11.png)
+
+---
+
+# What is a neural network _not_?
+## A model of the human brain
+Neural networks are a vastly simplified model _inspired by_ **some** of the things we know about the brain
+
+However neurons in the brain are incredibly complex in their own right, and we don't fully understand single neurons yet!
+
+(Chemical based synapses,  about quantum microtubules for a taster!)
+
+---
+
+# What are they good at?
+
+Neural networks aren't black boxes of magic Artificial Intelligence.
+
+They lend themselves very well to solving particular kinds of problems.
+
+---
+
+# Classification problems
+
+<div class="constrain">
+
+<img src="assets/images/mnist_first_digit.png" alt="">
+(28x28 pixel image = 784 pieces of input data)
+<br>
+
+<img src="assets/images/tikz12.png" alt="">
+
+</div>
+
+from http://neuralnetworksanddeeplearning.com/chap1.html
+
+---
+
+# Training (The hard bit!)
+
+---
+
+# Demo time!
+
+_Work in progress_
+
+Be nice :-)
+
+---
+
+# Don't look too hard
+
+The code is all on GitHub:
+
+https://github.com/andymantell/back-propagation
+
+But it's proper dirty, and badly structured. Don't look too closely :-)
+
+---
+
+# The problems aren't like problems I'm used to dealing with!
+
+![Dead](assets/images/dead.png)
+
+---
+
+# Scientists write code for scientists!
+
+
+---
+# I'll be back...
+
+<video src="assets/images/illbeback.mp4"></video>
+
+---
+# Questions?
+
+## Links:
+
+Code: https://github.com/andymantell/back-propagation
+
+Demo: https://andymantell.github.io/back-propagation/
+
+## Further reading:
+[Using neural nets to recognize handwritten digits](http://neuralnetworksanddeeplearning.com/chap1.html)
+
+
+    </textarea>
+    <script src="https://remarkjs.com/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create();
+
+      slideshow.on('afterShowSlide', function(slide) {
+        var slideElement = document.querySelectorAll('.remark-slide')[slide.getSlideIndex()]
+        var vid = slideElement.querySelector('video')
+        vid && vid.play()
+      })
+
+      slideshow.on('afterHideSlide', function(slide) {
+        var slideElement = document.querySelectorAll('.remark-slide')[slide.getSlideIndex()]
+        var vid = slideElement.querySelector('video')
+        if(vid) {
+         vid.pause()
+         vid.currentTime = 0
+        }
+      })
+    </script>
+  </body>
+</html>
