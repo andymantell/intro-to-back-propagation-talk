@@ -11,9 +11,56 @@
       body { font-family: 'Droid Serif'; }
       h1, h2, h3 {
         font-family: 'Yanone Kaffeesatz';
-        font-weight: normal;
+        font-weight: 400;
+        margin-bottom: 0;
+      }
+      .remark-slide-content h1 { font-size: 3em; }
+      .remark-slide-content h2 { font-size: 1.8em; }
+      .remark-slide-content h3 { font-size: 1.6em; }
+      .footnote {
+        position: absolute;
+        bottom: 3em;
+      }
+      li p { line-height: 1.25em; }
+      .red { color: #fa0000; }
+      .large { font-size: 2em; }
+      a, a > code {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      code {
+        background: #e7e8e2;
+        border-radius: 5px;
       }
       .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .remark-code-line-highlighted     { background-color: #373832; }
+      .pull-left {
+        float: left;
+        width: 47%;
+      }
+      .pull-right {
+        float: right;
+        width: 47%;
+      }
+      .pull-right ~ p {
+        clear: both;
+      }
+      #slideshow .slide .content code {
+        font-size: 0.8em;
+      }
+      #slideshow .slide .content pre code {
+        font-size: 0.9em;
+        padding: 15px;
+      }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1, .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
 
       @page {
         size: 1210px 681px;
@@ -45,6 +92,22 @@
         width: 60%;
         margin: 0 auto;
       }
+
+      /* Two-column layout */
+      .left-column {
+        color: #777;
+        width: 20%;
+        height: 92%;
+        float: left;
+      }
+        .left-column h2:last-of-type, .left-column h3:last-child {
+          color: #000;
+        }
+      .right-column {
+        width: 75%;
+        float: right;
+        padding-top: 1em;
+      }
     </style>
   </head>
   <body>
@@ -59,13 +122,10 @@ Andy Mantell - Contract frontend developer<br>
 (@andymantell)
 
 ---
-
-name: inverse
 layout: true
 class: center, middle, inverse
 ---
 # Quick! You need to prep a talk!
-
 ---
 class: middle
 
@@ -144,9 +204,85 @@ They lend themselves very well to solving particular kinds of problems.
 from http://neuralnetworksanddeeplearning.com/chap1.html
 
 ---
+# Training
+---
+layout: false
+# Training
 
-# Training (The hard bit!)
+Take your proposed data set and split it up (Say, 90% for training)
 
+We won't use all of it to train the network.
+
+The remaining 10% will be used to validate the network after training.
+---
+layout: false
+.left-column[
+  ## Feed forward
+]
+.right-column[
+```md
+for each layer
+  for each neuron
+    activation = sigmoid(sum of all inputs * weights)
+```
+
+**Sigmoid**
+
+Used to constrain activations rather than letting them run wild
+![Sigmoid](assets/images/Logistic-curve.svg.png)
+]
+---
+.left-column[
+  ## Feed forward
+  ## Calculate errors and propagate back
+]
+
+.right-column[
+```md
+for each output neuron
+  compare desired value to actual value
+  adjust weight of connections
+  feed some of the error back through the network
+  change weights as you go 
+```
+
+Note: This is the hard bit!
+(I'm not doing it quite right at the moment :-) 
+
+]
+---
+.left-column[
+  ## Feed forward
+  ## Calculate errors and propagate back
+  ## Repeat!
+]
+
+.right-column[
+Repeat until errors reach a low enough level, and then stop
+
+Known as "Gradient descent"
+![Valley with ball](assets/images/valley_with_ball.png)
+]
+---
+.left-column[
+  ## Feed forward
+  ## Calculate errors and propagate back
+  ## Repeat!
+]
+
+.right-column[
+Repeat until errors reach a low enough level, and then stop
+
+Known as "Gradient descent"
+![Complex gradient descent](assets/images/complex.png)
+]
+---
+# Design considerations
+How many hidden layers and neurons?
+
+More is not necessarily better - can result in a network which "over fits" the training data and fails to capture the _general rules_
+
+It will perform superbly against the training data but fail to make predictions on new inputs
 ---
 
 # Demo time!
@@ -166,16 +302,97 @@ https://github.com/andymantell/back-propagation
 But it's proper dirty, and badly structured. Don't look too closely :-)
 
 ---
-
-# The problems aren't like problems I'm used to dealing with!
-
+.left-column[
+## Unfamiliar problems!
+]
+.right-column[
 ![Dead](assets/images/dead.png)
-
+]
 ---
 
-# Scientists write code for scientists!
+.left-column[
+## Unfamiliar problems!
+## Mathematicians!
+]
+.right-column[
+Mathematicians write code for mathematicians!
 
+Can be pretty hard to read if you aren't up on it.
 
+```c
+NeuralNetwork :: backpropagate()
+{
+ double         dw;                             // temporary variable - dE/dw[i][j]
+
+ for_k
+ {
+  dy[k] = y[k] - O[k];
+  dx[k] = ( dy[k] ) * y[k] * (1-y[k]);
+ }
+
+ for_j
+ {
+  double t = 0;
+  for_k
+   t = t + ( dx[k] * w[j][k] );
+  dy[j] = t;
+  dx[j] = ( dy[j] ) * y[j] * (1-y[j]);
+ }
+
+ for_j
+  for_k 
+  {
+   dw = dx[k] * y[j];           
+   w[j][k] = w[j][k] - ( RATE * dw );
+  }
+
+ for_i
+  for_j
+  {
+   dw = dx[j] * I[i];           
+   w[i][j] = w[i][j] - ( RATE * dw );
+  }
+
+ for_k 
+ {
+  dw = dx[k] * (-1);            
+  wt[k] = wt[k] - ( RATE * dw );
+ }
+
+ for_j
+ {
+  dw = dx[j] * (-1);            
+  wt[j] = wt[j] - ( RATE * dw );
+ }
+}
+```
+]
+---
+class: center, middle, inverse
+# Reality
+
+---
+# Stand on the shoulders of giants
+Other far cleverer people have already done all this stuff.
+
+Use it instead!
+
+- https://www.ibm.com/watson/
+- https://www.tensorflow.org/
+- https://azure.microsoft.com/en-gb/services/cognitive-services/
+- https://openai.com/
+---
+# But...
+---
+class: middle
+
+> "It's a rite of passage for a developer to write a shit [_something_] in [_language of choice_] at least once in their career"
+
+> "Provided they throw it away afterwards!"
+
+<span style="text-align: left">Andy Mantell, 2010</span>
+
+<small>_(Ok, I made that date up, but I remember saying it!)_</small>
 ---
 # I'll be back...
 
