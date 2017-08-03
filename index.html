@@ -108,6 +108,15 @@
         float: right;
         padding-top: 1em;
       }
+
+      blockquote {
+        padding: 0 30px;
+        border-left: 5px solid #eee
+      }
+
+      blockquote p {
+        padding: 10px 0;
+      }
     </style>
   </head>
   <body>
@@ -128,27 +137,28 @@ class: center, middle, inverse
 # Quick! You need to prep a talk!
 ---
 class: middle
-
+layout: false
 > "Next time you should do a talk on something that you already know and are good at"
 
 <span style="text-align: left">Ashleigh Mitchell, 2016</span>
 
 ---
-
+class: middle
 ![Lol](assets/images/lol.gif)
 
+---
+<div class="constrain">
+
+  <img src="assets/images/tweet.png" alt="">
+</div>
 ---
 
 ![University](assets/images/grad.jpg)
 
----
-
-<div class="constrain">
-<img src="assets/images/tweet.png" alt="">
-</div>
+<img src="assets/images/playschool.jpg" alt="" style="width: 250px;margin-top: -100px">
 
 ---
-
+class: middle, center
 <video src="assets/images/difficult.mp4"></video>
 <p>When you look away for a second during class...</p>
 
@@ -177,7 +187,7 @@ Neural networks are a vastly simplified model _inspired by_ **some** of the thin
 
 However neurons in the brain are incredibly complex in their own right, and we don't fully understand single neurons yet!
 
-(Chemical based synapses,  about quantum microtubules for a taster!)
+(Google "quantum microtubules" for a taster!)
 
 ---
 
@@ -186,6 +196,8 @@ However neurons in the brain are incredibly complex in their own right, and we d
 Neural networks aren't black boxes of magic Artificial Intelligence.
 
 They lend themselves very well to solving particular kinds of problems.
+
+![](assets/images/mnist_100_digits.png)
 
 ---
 
@@ -204,6 +216,7 @@ They lend themselves very well to solving particular kinds of problems.
 from http://neuralnetworksanddeeplearning.com/chap1.html
 
 ---
+class: inverse,center,middle
 # Training
 ---
 layout: false
@@ -230,6 +243,7 @@ for each layer
 
 Used to constrain activations rather than letting them run wild
 ![Sigmoid](assets/images/Logistic-curve.svg.png)
+
 ]
 ---
 .left-column[
@@ -248,6 +262,8 @@ for each output neuron
 
 Note: This is the hard bit!
 (I'm not doing it quite right at the moment :-) 
+
+![Neural network](assets/images/tikz11.png)
 
 ]
 ---
@@ -282,24 +298,27 @@ How many hidden layers and neurons?
 
 More is not necessarily better - can result in a network which "over fits" the training data and fails to capture the _general rules_
 
-It will perform superbly against the training data but fail to make predictions on new inputs
+It will have near perfect recollection of the training data but fail to make predictions on new inputs
 ---
 
 # Demo time!
 
-_Work in progress_
+it's proper dirty, badly structured and really unfinished. Don't look too hard!
 
-Be nice :-)
+## Done:
+- General network setup
+- Feed forward pass
+- Basic training mechanics
+- Network visualisation
 
----
+## Todo:
+- Proper back propagation and weight adjustment (Rather than a fake one)
+- Ability to save and load a trained network for later use
+- User interface
 
-# Don't look too hard
-
-The code is all on GitHub:
+TL;DR I knew it wasn't going to be easy, but it's been even harder than I imagined.
 
 https://github.com/andymantell/back-propagation
-
-But it's proper dirty, and badly structured. Don't look too closely :-)
 
 ---
 .left-column[
@@ -317,7 +336,7 @@ But it's proper dirty, and badly structured. Don't look too closely :-)
 .right-column[
 Mathematicians write code for mathematicians!
 
-Can be pretty hard to read if you aren't up on it.
+Can be pretty hard to read if you aren't good at Maths. Turns out, I am not!
 
 ```c
 NeuralNetwork :: backpropagate()
@@ -368,8 +387,8 @@ NeuralNetwork :: backpropagate()
 ```
 ]
 ---
-class: center, middle, inverse
-# Reality
+# Someone else's demo...
+http://www.denseinl2.com/webcnn/digitdemo.html
 
 ---
 # Stand on the shoulders of giants
@@ -394,16 +413,27 @@ class: middle
 
 <small>_(Ok, I made that date up, but I remember saying it!)_</small>
 ---
+class: center, middle, inverse
 # I'll be back...
+# But in the meantime:
+---
+# Really freaky stuff :-|
 
-<video src="assets/images/illbeback.mp4"></video>
+<iframe width="100%" height="80%" src="https://www.youtube.com/embed/iYzOZQDsm5w?ecver=1" frameborder="0" allowfullscreen></iframe>
+---
+# Awesome stuff
 
+![](assets/images/tesla-self-driving-gif-1.gif)
+---
+# Inspirational stuff
+
+![](assets/images/alz-brain-scan_orig.jpg)
 ---
 # Questions?
 
 ## Links:
 
-Code: https://github.com/andymantell/back-propagation
+Work in progress code: https://github.com/andymantell/back-propagation
 
 Demo: https://andymantell.github.io/back-propagation/
 
